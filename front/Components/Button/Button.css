@@ -1,4 +1,4 @@
-.button-primary {
+.button_primary {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,16 +13,16 @@
   transition: all 0.1s ease;
 }
 
-.button-primary:hover {
+.button_primary:hover {
   background-color: #ef407a;
 }
 
-.button-primary:active {
+.button_primary:active {
   background-color: #d72f5c;
   scale: 0.98;
 }
 
-.button-secondary {
+.button_secondary {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,16 +37,16 @@
   transition: all 0.1s ease;
 }
 
-.button-secondary:hover {
+.button_secondary:hover {
   background-color: #f0e6e9;
 }
 
-.button-secondary:active {
+.button_secondary:active {
   background-color: #e0d3d9;
   scale: 0.98;
 }
 
-.button-tertiary {
+.button_tertiary {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,6 +61,6 @@
   transition: all 0.1s ease;
 }
 
-.button-tertiary:hover {
+.button_tertiary:hover {
   background-color: var(--secondary);
 }

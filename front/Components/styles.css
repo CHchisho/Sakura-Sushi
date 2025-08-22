@@ -2,6 +2,7 @@
 
 /* Import styles components */
 @import url('./Button/Button.css');
+@import url('./Tag/Tag.css');
 @import url('./Header/Header.css');
 @import url('./Menu/Menu.css');
 @import url('./Footer/Footer.css');

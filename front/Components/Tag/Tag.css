@@ -1,0 +1,20 @@
+
+.tag {
+  border-radius: 999px;
+}
+
+.tag_blue {
+  color: #1e40af;
+  background-color: #dbeafe;
+}
+
+.tag_green {
+  color: #166534;
+  background-color: #dcfce7;
+}
+
+.tag p {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
