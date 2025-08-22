@@ -1,0 +1,46 @@
+/* Main styles file - import all components */
+
+/* Import styles components */
+@import url('./Button/Button.css');
+@import url('./Header/Header.css');
+@import url('./Menu/Menu.css');
+@import url('./Footer/Footer.css');
+@import url('./Preview/Preview.css');
+
+/* Global styles */
+
+:root {
+  --primary: #e23670;
+  --secondary: 330 25% 92%;
+  --background: #f8f1f5;
+  --color-1: #fdfbfc;
+}
+
+
+body {
+  margin: 0;
+  overflow-x: hidden !important;
+  background-color: #f8f1f5;
+  font-feature-settings: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+* {
+  box-sizing: border-box;
+}
