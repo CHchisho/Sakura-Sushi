@@ -11,8 +11,9 @@
 
 :root {
   --primary: #e23670;
-  --secondary: 330 25% 92%;
+  --secondary: #f6cbe8;
   --background: #f8f1f5;
+  --border: #ecdfe6;
   --color-1: #fdfbfc;
 }
 
