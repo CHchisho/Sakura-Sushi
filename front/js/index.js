@@ -1,31 +1,16 @@
-function main() {
-  fetch('Components/Header/header.html')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(html => {
-      document.getElementById('header').innerHTML = html;
-    })
-    .catch(error => {
-      console.error('Error loading header:', error);
-    });
+import { getHeader, getFooter } from './utils.js';
+import { getMenu } from './api.js';
+import { generateMenu, initializeFilterButtons, setMenu } from './menu.js';
 
-  fetch('Components/Footer/footer.html')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.text();
-    })
-    .then(html => {
-      document.getElementById('footer').innerHTML = html;
-    })
-    .catch(error => {
-      console.error('Error loading footer:', error);
-    });
+
+async function main() {
+  getHeader();
+  getFooter();
+
+  const restaurantMenu = await getMenu();
+  setMenu(restaurantMenu);
+  generateMenu(restaurantMenu);
+  initializeFilterButtons();
 }
 
 main();

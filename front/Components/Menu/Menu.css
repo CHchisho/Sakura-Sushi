@@ -19,6 +19,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 16px;
+  margin-top: 24px;
 }
 
 .menu_item {
@@ -89,4 +90,33 @@
 
 .button_add:hover {
   background-color: #ef407a;
+}
+
+
+.menu_filters_buttons {
+  display: flex;
+  flex-direction: row;
+  background-color: #f3edf080;
+  color: #262626;
+  padding: 4px;
+  border-radius: 12px;
+  gap: 12px;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.menu_filters_button {
+  background-color: transparent;
+  /* color: var(--primary); */
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.menu_filters_button.active {
+  background-color: #fffafd;
 }
