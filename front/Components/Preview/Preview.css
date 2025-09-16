@@ -1,0 +1,74 @@
+.preview_container {
+  position: relative;
+  height: 80vh;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+.preview_container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(3px) brightness(0.7);
+  -webkit-filter: blur(3px) brightness(0.7);
+  z-index: -1;
+}
+
+@media (max-width: 768px) {
+  .preview_container {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    min-height: 300px;
+  }
+}
+
+.preview_content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.preview_content h2 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.preview_content h2 span {
+  color: var(--secondary);
+}
+
+.preview_content a {
+  width: fit-content;
+}
+
+.preview_content p {
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .preview_content h2 {
+    font-size: 24px;
+  }
+  .preview_content p {
+    font-size: 14px;
+  }
+}
