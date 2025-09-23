@@ -1,0 +1,15 @@
+{
+  "watch": [
+    "front/js/**/*.ts",
+    "server/**/*.js"
+  ],
+  "ext": "ts,js",
+  "ignore": [
+    "front/js-dist/**/*",
+    "node_modules/**/*"
+  ],
+  "exec": "npm run build && node server/server.js",
+  "env": {
+    "NODE_ENV": "development"
+  }
+}

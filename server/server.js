@@ -11,6 +11,7 @@ app.use(express.static(path.join(__dirname, '../front')));
 
 const menuItems = [
   {
+    id: 1,
     type: 'Rolls',
     title: 'Sakura Roll',
     description: 'Salmon, avocado, cucumber with pink tobiko caviar',
@@ -18,6 +19,7 @@ const menuItems = [
     price: 12,
   },
   {
+    id: 2,
     type: 'Sushi',
     title: 'Salmon Sushi',
     description: 'Fresh Norwegian salmon on rice',
@@ -25,6 +27,7 @@ const menuItems = [
     price: 13,
   },
   {
+    id: 3,
     type: 'Rolls',
     title: 'Tofu Roll',
     description: 'Teriyaki tofu, cucumber, iceberg lettuce',
@@ -32,6 +35,7 @@ const menuItems = [
     price: 14,
   },
   {
+    id: 4,
     type: 'Hot Dishes',
     title: 'Miso Soup',
     description: 'Traditional Japanese soup with tofu and seaweed',

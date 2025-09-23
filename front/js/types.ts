@@ -5,11 +5,12 @@ export type TagColor = 'g' | 'b'; // green | blue
 export type MenuTag = [TagColor, string];
 
 export interface MenuItem {
-  type: MenuItemType;
-  title: string;
-  description: string;
-  tags: MenuTag[];
-  price: number;
+	id: number;
+	type: MenuItemType;
+	title: string;
+	description: string;
+	tags: MenuTag[];
+	price: number;
 }
 
 export type Menu = MenuItem[];
