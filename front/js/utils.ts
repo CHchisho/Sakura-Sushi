@@ -1,4 +1,4 @@
-export const getHeader = async () => {
+export const getHeader = async (): Promise<void> => {
   fetch('Components/Header/header.html')
     .then(response => {
       if (!response.ok) {
@@ -7,14 +7,17 @@ export const getHeader = async () => {
       return response.text();
     })
     .then(html => {
-      document.getElementById('header').innerHTML = html;
+      const headerElement = document.getElementById('header');
+      if (headerElement) {
+        headerElement.innerHTML = html;
+      }
     })
     .catch(error => {
       console.error('Error loading header:', error);
     });
 };
 
-export const getFooter = async () => {
+export const getFooter = async (): Promise<void> => {
   fetch('Components/Footer/footer.html')
     .then(response => {
       if (!response.ok) {
@@ -23,7 +26,10 @@ export const getFooter = async () => {
       return response.text();
     })
     .then(html => {
-      document.getElementById('footer').innerHTML = html;
+      const footerElement = document.getElementById('footer');
+      if (footerElement) {
+        footerElement.innerHTML = html;
+      }
     })
     .catch(error => {
       console.error('Error loading footer:', error);

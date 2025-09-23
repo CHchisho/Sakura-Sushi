@@ -1,11 +1,13 @@
-let selectedType = 'All';
-let currentMenu = [];
+import { Menu, MenuItem, FilterType } from './types.js';
 
-export const setMenu = (menu) => {
+let selectedType: FilterType = 'All';
+let currentMenu: Menu = [];
+
+export const setMenu = (menu: Menu): void => {
   currentMenu = menu;
 };
 
-export const setSelectedType = (type) => {
+export const setSelectedType = (type: FilterType): void => {
   selectedType = type;
   const menu_type = document.getElementById('menu_type');
   if (menu_type) {
@@ -15,17 +17,17 @@ export const setSelectedType = (type) => {
 };
 
 
-export const initializeFilterButtons = () => {
-  const menu_filters_buttons = document.querySelectorAll('.menu_filters_button');
+export const initializeFilterButtons = (): void => {
+  const menu_filters_buttons = document.querySelectorAll<HTMLButtonElement>('.menu_filters_button');
   menu_filters_buttons.forEach(button => {
     button.addEventListener('click', () => {
-      setSelectedType(button.value);
+      setSelectedType(button.value as FilterType);
     });
   });
 };
 
 
-export const generateMenuItem = (item) => {
+export const generateMenuItem = (item: MenuItem): string => {
   let html = `
     <div class="menu_item">
         <div class="top">
@@ -55,8 +57,10 @@ export const generateMenuItem = (item) => {
 };
 
 
-export const generateMenu = (menu, filterType = null) => {
+export const generateMenu = (menu: Menu, filterType: FilterType | null = null): void => {
   const menu_items = document.getElementById('menu_items');
+  if (!menu_items) return;
+  
   menu_items.innerHTML = '';
   for (const item of menu) {
     if (filterType && filterType !== 'All' && item.type !== filterType) {
@@ -72,11 +76,11 @@ export const generateMenu = (menu, filterType = null) => {
   }
 
   // Change active button
-  const menu_filters_buttons = document.querySelectorAll('.menu_filters_button');
+  const menu_filters_buttons = document.querySelectorAll<HTMLButtonElement>('.menu_filters_button');
   menu_filters_buttons.forEach(button => {
     button.classList.remove('active');
   });
-  const active_button = document.querySelector(`.menu_filters_button[value="${filterType || 'All'}"]`);
+  const active_button = document.querySelector<HTMLButtonElement>(`.menu_filters_button[value="${filterType || 'All'}"]`);
   if (active_button) {
     active_button.classList.add('active');
   }
