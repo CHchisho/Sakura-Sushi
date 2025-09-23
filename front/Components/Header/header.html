@@ -11,14 +11,40 @@
     <a href="/contact" class="header_menu_button">Contact</a>
   </div>
   <div class="header_controls">
-    <button class="header_control_button button_secondary">
+    <button class="header_control_button button_secondary" id="cart-button">
       <i class="bi bi-cart"></i>
+      <span class="cart-count" id="cart-count">0</span>
     </button>
     <button class="header_control_button button_secondary">
       <i class="bi bi-person"></i>
     </button>
     <button class="header_control_button button_primary">
       Order
+    </button>
+  </div>
+</div>
+
+<!-- Cart Sidebar -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h3>Shopping Cart</h3>
+    <button class="cart-close" id="cart-close">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+
+  <div class="cart-items" id="cart-items">
+    <!-- Cart items will be dynamically inserted here -->
+  </div>
+
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total:</span>
+      <span class="cart-total-price" id="cart-total-price">0$</span>
+    </div>
+    <button class="cart-checkout button_primary" id="cart-checkout">
+      Proceed to Checkout
     </button>
   </div>
 </div>

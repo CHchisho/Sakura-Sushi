@@ -72,7 +72,7 @@
 
 .header_controls {
   display: flex;
-  gap: 4px;
+  gap: 8px;
 }
 
 .header_control_button {
