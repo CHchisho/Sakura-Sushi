@@ -3,7 +3,7 @@ import { getMenu } from './api.js';
 import { generateMenu, initializeFilterButtons, setMenu } from './menu.js';
 
 
-async function main() {
+async function main(): Promise<void> {
   getHeader();
   getFooter();
 
