@@ -15,6 +15,10 @@
   margin-block: 12px;
 }
 
+#menu_type {
+  color: var(--header-color);
+}
+
 .menu_items {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -26,7 +30,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background-color: white;
+  background-color: var(--menu-item-background);
   padding: 24px;
   width: 100%;
   border-radius: 16px;
@@ -54,6 +58,7 @@
 .top_info h4 {
   font-size: 18px;
   transition: all 0.2s ease;
+  color: var(--header-color);
 }
 
 .top_info p {
