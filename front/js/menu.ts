@@ -1,5 +1,9 @@
-import { Menu, MenuItem, FilterType, DayOfWeek } from './types.js';
+import { Menu, MenuItem, FilterType, DayOfWeek, Restaurant, BusStop } from './types.js';
 import { cart } from './cart.js';
+import { getRestaurants, getBusStops } from './api.js';
+
+// Declare global L for Leaflet
+declare const L: any;
 
 let selectedType: FilterType = 'All';
 let selectedDays: DayOfWeek[] = [1, 2, 3, 4, 5, 6, 7]; // By default all days are selected
@@ -150,6 +154,127 @@ export const generateMenu = (menu: Menu, filterType: FilterType | null = null, d
 			if (menuItem) {
 				cart.addItem(menuItem);
 			}
+		});
+	});
+};
+
+// Map functionality
+let map: L.Map | null = null;
+
+// Функция для вычисления расстояния между двумя точками на плоскости (приближённо, в километрах)
+const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+	// Приблизительное значение длины одного градуса широты и долготы в километрах
+	const latDegreeKm = 111.32;
+	const lonDegreeKm = 40075 * Math.cos(((lat1 + lat2) / 2) * Math.PI / 180) / 360;
+
+	const dLat = lat2 - lat1;
+	const dLon = lon2 - lon1;
+
+	const dx = dLon * lonDegreeKm;
+	const dy = dLat * latDegreeKm;
+
+	return Math.sqrt(dx * dx + dy * dy);
+};
+
+// Function to find nearest bus stops for a restaurant
+const findNearestBusStops = (restaurant: Restaurant, busStops: BusStop[], limit: number = 5): BusStop[] => {
+	const stopsWithDistance = busStops.map(stop => ({
+		stop,
+		distance: calculateDistance(
+			restaurant.coordinates.lat,
+			restaurant.coordinates.lng,
+			stop.geometry.y, // lat
+			stop.geometry.x  // lng
+		)
+	}));
+
+	// Sort by distance and take the nearest ones
+	return stopsWithDistance
+		.sort((a, b) => a.distance - b.distance)
+		.slice(0, limit)
+		.map(item => item.stop);
+};
+
+export const initializeMap = async (): Promise<void> => {
+	const mapContainer = document.getElementById('restaurants_map');
+	if (!mapContainer) return;
+
+	// Initialize map centered on Helsinki
+	map = L.map('restaurants_map').setView([60.1699, 24.9384], 10);
+
+	// Add OpenStreetMap tiles
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '© OpenStreetMap contributors'
+	}).addTo(map);
+
+	// Load and display restaurants and bus stops
+	try {
+		const [restaurants, busStopsData] = await Promise.all([
+			getRestaurants(),
+			getBusStops()
+		]);
+
+		console.log(busStopsData);
+		displayRestaurantsOnMap(restaurants, busStopsData.features);
+	} catch (error) {
+		console.error('Error loading map data:', error);
+	}
+};
+
+const displayRestaurantsOnMap = (restaurants: Restaurant[], busStops: BusStop[]): void => {
+	if (!map) return;
+
+	// Create custom icons
+	const restaurantIcon = L.divIcon({
+		className: 'restaurant-marker',
+		html: '<div style="background-color: #ec4899; width: 20px; height: 20px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+		iconSize: [20, 20],
+		iconAnchor: [10, 10]
+	});
+
+	const busStopIcon = L.divIcon({
+		className: 'busstop-marker',
+		html: '<div style="background-color: #3b82f6; width: 16px; height: 16px; border-radius: 3px; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
+		iconSize: [16, 16],
+		iconAnchor: [8, 8]
+	});
+
+	// Display restaurants and their nearest bus stops
+	restaurants.forEach(restaurant => {
+		// Add restaurant marker
+		const restaurantMarker = L.marker([restaurant.coordinates.lat, restaurant.coordinates.lng], {
+			icon: restaurantIcon
+		}).addTo(map!);
+
+		// Create popup content for restaurant
+		const popupContent = `
+			<div class="restaurant-popup">
+				<h3>${restaurant.name}</h3>
+				<p><strong>Address:</strong> ${restaurant.address}</p>
+				<p><strong>Working hours:</strong> ${restaurant.workingHours}</p>
+			</div>
+		`;
+
+		restaurantMarker.bindPopup(popupContent);
+
+		// Find and display nearest bus stops
+		const nearestStops = findNearestBusStops(restaurant, busStops, 5);
+		console.log(restaurant, nearestStops);
+		nearestStops.forEach(stop => {
+			const busStopMarker = L.marker([stop.geometry.y, stop.geometry.x], {
+				icon: busStopIcon
+			}).addTo(map!);
+
+			// Create popup content for bus stop
+			const stopPopupContent = `
+				<div class="busstop-popup">
+					<h4>Bus stop: ${stop.attributes.NIMI1}</h4>
+					<p><strong>Stop ID:</strong> ${stop.attributes.LYHYTTUNNU}</p>
+					<p><strong>Address:</strong> ${stop.attributes.NIMI2}</p>
+				</div>
+			`;
+
+			busStopMarker.bindPopup(stopPopupContent);
 		});
 	});
 };

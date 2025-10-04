@@ -1,6 +1,6 @@
 import { getHeader, getFooter } from './utils.js';
 import { getMenu } from './api.js';
-import { generateMenu, initializeFilterButtons, initializeDayButtons, setMenu } from './menu.js';
+import { generateMenu, initializeFilterButtons, initializeDayButtons, setMenu, initializeMap } from './menu.js';
 import { cart } from './cart.js';
 import { loadTheme, toggleTheme } from './theme.js';
 import { authManager } from './user.js';
@@ -21,6 +21,9 @@ async function main(): Promise<void> {
 		generateMenu(restaurantMenu, null);
 		initializeFilterButtons();
 		initializeDayButtons();
+
+		// Initialize map for restaurants
+		await initializeMap();
 		// console.log(cart.items);
 
 		loadTheme();

@@ -25,3 +25,36 @@ export interface DayFilter {
 	name: string;
 	shortName: string;
 }
+
+export interface Restaurant {
+	id: number;
+	name: string;
+	address: string;
+	workingHours: string;
+	coordinates: {
+		lat: number;
+		lng: number;
+	};
+}
+
+export interface BusStop {
+	attributes: {
+		LYHYTTUNNU: string;
+		NIMI1: string;
+		NIMI2: string;
+	};
+	geometry: {
+		x: number; // longitude
+		y: number; // latitude
+	};
+}
+
+export interface BusStopFeatureCollection {
+	objectIdFieldName: string;
+	uniqueIdField: any;
+	globalIdFieldName: string;
+	geometryType: string;
+	spatialReference: any;
+	exceededTransferLimit: boolean;
+	features: BusStop[];
+}

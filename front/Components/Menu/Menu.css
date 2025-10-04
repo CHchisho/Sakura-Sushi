@@ -174,3 +174,95 @@
   background-color: #ef407a;
   transform: translateY(-1px);
 }
+
+/* Map Section Styles */
+.map_section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 12px;
+  background-color: var(--background);
+}
+
+.map_title {
+  color: var(--header-color);
+  text-align: center;
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.restaurants_map {
+  height: 400px;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Restaurant popup styles */
+.restaurant-popup {
+  padding: 8px;
+  min-width: 200px;
+}
+
+.restaurant-popup h3 {
+  color: var(--primary);
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.restaurant-popup p {
+  margin: 4px 0 !important;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.restaurant-popup strong {
+  color: var(--header-color);
+  font-weight: 600;
+}
+
+/* Bus stop popup styles */
+.busstop-popup {
+  padding: 8px;
+  min-width: 180px;
+}
+
+.busstop-popup h4 {
+  color: #3b82f6;
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.busstop-popup p {
+  margin: 3px 0 !important;
+  font-size: 12px;
+  color: #666;
+  line-height: 1.3;
+}
+
+.busstop-popup strong {
+  color: var(--header-color);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .menu_filters_button {
+    padding: 8px 16px;
+  }
+
+  .restaurants_map {
+    height: 300px;
+  }
+
+  .map_section {
+    padding: 20px 12px;
+  }
+
+  .map_title {
+    font-size: 20px;
+  }
+}

@@ -18,6 +18,39 @@ app.use(express.static(path.join(__dirname, '../front')));
 const USERS_FILE = path.join(__dirname, 'users.json');
 const MENU_FILE = path.join(__dirname, 'menu.json');
 
+const RESTORANTS = [
+  {
+    id: 1,
+    name: 'Sakura Sushi - Helsinki',
+    address: 'Mannerheimintie 1, 00100 Helsinki',
+    workingHours: '10:00 - 22:00',
+    coordinates: {
+      lat: 60.1699,
+      lng: 24.9384
+    }
+  },
+  {
+    id: 2,
+    name: 'Sakura Sushi - Espoo',
+    address: 'Karaportti 2, 02610 Espoo',
+    workingHours: '10:00 - 22:00',
+    coordinates: {
+      lat: 60.1841,
+      lng: 24.9288
+    }
+  },
+  {
+    id: 3,
+    name: 'Sakura Sushi - Vantaa',
+    address: 'Tikkurilantie 1, 01300 Vantaa',
+    workingHours: '10:00 - 22:00',
+    coordinates: {
+      lat: 60.1834,
+      lng: 24.9572
+    }
+  }
+]
+
 // Functions for working with users
 async function loadUsers() {
   try {
@@ -124,6 +157,15 @@ app.get('/api/menu', async (req, res) => {
     res.json(menuItems);
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error loading menu' });
+  }
+});
+
+// API endpoint for getting restaurants
+app.get('/api/restaurants', (req, res) => {
+  try {
+    res.json(RESTORANTS);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error loading restaurants' });
   }
 });
 
