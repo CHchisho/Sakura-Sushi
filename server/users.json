@@ -4,5 +4,11 @@
     "email": "ilia@gmail.com",
     "password": "$2b$10$obqbl1csbEtlflGsFL5hGODxzywy3kZ5fhU.gdqEyzjOtMgYYG.nm",
     "createdAt": "2025-10-04T07:43:19.587Z"
+  },
+  {
+    "id": 1759572159973,
+    "email": "admin@gmail.com",
+    "password": "$2b$10$j/wHT9NYjT.RNVSqfy6sT.S4DIhXeXEZ4cJWuBfzCf4HcpkSajwRW",
+    "createdAt": "2025-10-04T10:02:39.973Z"
   }
 ]

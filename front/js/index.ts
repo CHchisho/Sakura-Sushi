@@ -3,11 +3,14 @@ import { getMenu } from './api.js';
 import { generateMenu, initializeFilterButtons, initializeDayButtons, setMenu } from './menu.js';
 import { cart } from './cart.js';
 import { loadTheme, toggleTheme } from './theme.js';
-import './user.js';
+import { authManager } from './user.js';
 
 async function main(): Promise<void> {
 	try {
 		await getHeader();
+
+		// Initialize user button listener after header is loaded
+		authManager.initializeUserButtonListener();
 
 		cart.initializeEventListeners();
 
@@ -18,13 +21,13 @@ async function main(): Promise<void> {
 		generateMenu(restaurantMenu, null);
 		initializeFilterButtons();
 		initializeDayButtons();
-		console.log(cart.items);
-		
+		// console.log(cart.items);
+
 		loadTheme();
 
 		const checkbox = document.getElementById('theme-checkbox');
 		if (checkbox) {
-		  checkbox.addEventListener('change', toggleTheme);
+			checkbox.addEventListener('change', toggleTheme);
 		}
 	} catch (error) {
 		console.error('Error in main function:', error);

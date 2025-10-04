@@ -17,11 +17,10 @@ export class Cart {
 	}
 
 	public initializeEventListeners(): void {
-		console.log('initializeEventListeners');
 		// Cart button click
 		const cartButton = document.getElementById('cart-button');
 		if (cartButton) {
-			console.log('cartButton');
+			console.log('initializeEventListeners cartButton');
 			cartButton.addEventListener('click', () => this.toggleCart());
 		}
 

@@ -109,27 +109,27 @@
   .profile-container {
     padding: 20px 10px;
   }
-  
+
   .profile-content {
     padding: 20px;
   }
-  
+
   .profile-header {
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
   }
-  
+
   .profile-info {
     flex-direction: column;
     text-align: center;
     gap: 20px;
   }
-  
+
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .profile-message {
     top: 10px;
     right: 10px;

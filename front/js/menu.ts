@@ -12,7 +12,7 @@ const DAYS_NAMES = {
 	4: 'Thu',
 	5: 'Fri',
 	6: 'Sat',
-	7: 'Sun',
+	7: 'Sun'
 };
 
 export const setMenu = (menu: Menu): void => {
@@ -48,9 +48,9 @@ export const initializeDayButtons = (): void => {
 	menu_day_buttons.forEach(button => {
 		button.addEventListener('click', () => {
 			const day = parseInt(button.getAttribute('data-day') || '1') as DayOfWeek;
-			
+
 			button.classList.toggle('active');
-			
+
 			// Update selected days list
 			if (button.classList.contains('active')) {
 				if (!selectedDays.includes(day)) {
@@ -59,13 +59,13 @@ export const initializeDayButtons = (): void => {
 			} else {
 				selectedDays = selectedDays.filter(d => d !== day);
 			}
-			
+
 			// If no day is selected, select all
 			if (selectedDays.length === 0) {
 				selectedDays = [1, 2, 3, 4, 5, 6, 7];
 				menu_day_buttons.forEach(btn => btn.classList.add('active'));
 			}
-			
+
 			setSelectedDays(selectedDays);
 		});
 	});
@@ -113,7 +113,7 @@ export const generateMenu = (menu: Menu, filterType: FilterType | null = null, d
 		if (filterType && filterType !== 'All' && item.type !== filterType) {
 			continue;
 		}
-		
+
 		// Filter by days of the week
 		if (days && days.length > 0) {
 			const isAvailableOnSelectedDays = days.some(day => item.availableDays.includes(day));
@@ -121,7 +121,7 @@ export const generateMenu = (menu: Menu, filterType: FilterType | null = null, d
 				continue;
 			}
 		}
-		
+
 		menu_items.innerHTML += generateMenuItem(item);
 	}
 

@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '../front')));
 
 const USERS_FILE = path.join(__dirname, 'users.json');
+const MENU_FILE = path.join(__dirname, 'menu.json');
 
 // Functions for working with users
 async function loadUsers() {
@@ -32,6 +33,21 @@ async function saveUsers(users) {
   await fs.writeFile(USERS_FILE, JSON.stringify(users, null, 2));
 }
 
+// Functions for working with menu
+async function loadMenu() {
+  try {
+    const data = await fs.readFile(MENU_FILE, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    console.error('Error loading menu:', error);
+    return [];
+  }
+}
+
+async function saveMenu(menu) {
+  await fs.writeFile(MENU_FILE, JSON.stringify(menu, null, 2));
+}
+
 async function findUserByEmail(email) {
   const users = await loadUsers();
   return users.find(user => user.email === email);
@@ -42,7 +58,7 @@ async function createUser(email, password) {
   
   // Check if the user exists
   if (users.find(user => user.email === email)) {
-    throw new Error('Пользователь с таким email уже существует');
+    throw new Error('User with this email already exists');
   }
   
   // Hash the password
@@ -93,102 +109,6 @@ function authenticateToken(req, res, next) {
   });
 }
 
-// Extended menu with day of the week binding
-const menuItems = [
-  {
-    id: 1,
-    type: 'Rolls',
-    title: 'Sakura Roll',
-    description: 'Salmon, avocado, cucumber with pink tobiko caviar',
-    tags: [],
-    price: 12,
-    availableDays: [1, 2, 3, 4, 5, 6, 7],
-  },
-  {
-    id: 2,
-    type: 'Sushi',
-    title: 'Salmon Sushi',
-    description: 'Fresh Norwegian salmon on rice',
-    tags: [],
-    price: 13,
-    availableDays: [1, 2, 3, 4, 5, 6, 7],
-  },
-  {
-    id: 3,
-    type: 'Rolls',
-    title: 'Tofu Roll',
-    description: 'Teriyaki tofu, cucumber, iceberg lettuce',
-    tags: [['g', 'Vegan']],
-    price: 14,
-    availableDays: [1, 2, 3, 4, 5, 6, 7],
-  },
-  {
-    id: 4,
-    type: 'Hot Dishes',
-    title: 'Miso Soup',
-    description: 'Traditional Japanese soup with tofu and seaweed',
-    tags: [
-      ['g', 'Vegan'],
-      ['b', 'Gluten-free'],
-    ],
-    price: 15,
-    availableDays: [1, 2, 3, 4, 5, 6, 7],
-  },
-  {
-    id: 5,
-    type: 'Rolls',
-    title: 'Dragon Roll',
-    description: 'Eel, cucumber, avocado with eel sauce',
-    tags: [],
-    price: 18,
-    availableDays: [1, 3, 5, 7],
-  },
-  {
-    id: 6,
-    type: 'Sushi',
-    title: 'Tuna Sashimi',
-    description: 'Fresh bluefin tuna sashimi',
-    tags: [],
-    price: 22,
-    availableDays: [2, 4, 6],
-  },
-  {
-    id: 7,
-    type: 'Hot Dishes',
-    title: 'Chicken Teriyaki',
-    description: 'Grilled chicken with teriyaki sauce and rice',
-    tags: [],
-    price: 16,
-    availableDays: [1, 2, 3, 4, 5],
-  },
-  {
-    id: 8,
-    type: 'Rolls',
-    title: 'Spicy Tuna Roll',
-    description: 'Spicy tuna, cucumber, spicy mayo',
-    tags: [['b', 'Spicy']],
-    price: 14,
-    availableDays: [6, 7],
-  },
-  {
-    id: 9,
-    type: 'Sushi',
-    title: 'Unagi Nigiri',
-    description: 'Grilled eel on rice',
-    tags: [],
-    price: 19,
-    availableDays: [1, 3, 5],
-  },
-  {
-    id: 10,
-    type: 'Hot Dishes',
-    title: 'Beef Ramen',
-    description: 'Rich beef broth with noodles and vegetables',
-    tags: [],
-    price: 17,
-    availableDays: [2, 4, 6, 7],
-  },
-];
 
 app.get('/api/test', (req, res) => {
   res.json({
@@ -198,27 +118,123 @@ app.get('/api/test', (req, res) => {
   });
 });
 
-app.get('/api/menu', (req, res) => {
-  res.json(menuItems);
+app.get('/api/menu', async (req, res) => {
+  try {
+    const menuItems = await loadMenu();
+    res.json(menuItems);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error loading menu' });
+  }
 });
 
 // API endpoint for getting menu by days of the week
-app.get('/api/menu/days', (req, res) => {
-  const { days } = req.query;
-  
-  if (!days) {
-    return res.json(menuItems);
+app.get('/api/menu/days', async (req, res) => {
+  try {
+    const menuItems = await loadMenu();
+    const { days } = req.query;
+    
+    if (!days) {
+      return res.json(menuItems);
+    }
+    
+    // Parse days of the week from query parameter
+    const selectedDays = days.split(',').map(day => parseInt(day.trim()));
+    
+    // Filter menu by selected days
+    const filteredMenu = menuItems.filter(item => {
+      return selectedDays.some(day => item.availableDays.includes(day));
+    });
+    
+    res.json(filteredMenu);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error loading menu' });
   }
-  
-  // Parse days of the week from query parameter
-  const selectedDays = days.split(',').map(day => parseInt(day.trim()));
-  
-  // Filter menu by selected days
-  const filteredMenu = menuItems.filter(item => {
-    return selectedDays.some(day => item.availableDays.includes(day));
-  });
-  
-  res.json(filteredMenu);
+});
+
+// Admin API endpoints for menu management
+app.get('/api/admin/menu', authenticateToken, async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.email !== 'admin@gmail.com') {
+      return res.status(403).json({ success: false, message: 'Access denied' });
+    }
+    
+    const menuItems = await loadMenu();
+    res.json(menuItems);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error loading menu' });
+  }
+});
+
+app.post('/api/admin/menu', authenticateToken, async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.email !== 'admin@gmail.com') {
+      return res.status(403).json({ success: false, message: 'Access denied' });
+    }
+    
+    const menuItems = await loadMenu();
+    const newItem = {
+      id: Date.now(), // Simple ID generation
+      ...req.body,
+      availableDays: req.body.availableDays || []
+    };
+    
+    menuItems.push(newItem);
+    await saveMenu(menuItems);
+    
+    res.json({ success: true, item: newItem });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error adding menu item' });
+  }
+});
+
+app.put('/api/admin/menu/:id', authenticateToken, async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.email !== 'admin@gmail.com') {
+      return res.status(403).json({ success: false, message: 'Access denied' });
+    }
+    
+    const menuItems = await loadMenu();
+    const itemId = parseInt(req.params.id);
+    const itemIndex = menuItems.findIndex(item => item.id === itemId);
+    
+    if (itemIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Menu item not found' });
+    }
+    
+    menuItems[itemIndex] = { ...menuItems[itemIndex], ...req.body };
+    await saveMenu(menuItems);
+    
+    res.json({ success: true, item: menuItems[itemIndex] });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error updating menu item' });
+  }
+});
+
+app.delete('/api/admin/menu/:id', authenticateToken, async (req, res) => {
+  try {
+    // Check if user is admin
+    if (req.user.email !== 'admin@gmail.com') {
+      return res.status(403).json({ success: false, message: 'Access denied' });
+    }
+    
+    const menuItems = await loadMenu();
+    const itemId = parseInt(req.params.id);
+    const itemIndex = menuItems.findIndex(item => item.id === itemId);
+    
+    if (itemIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Menu item not found' });
+    }
+    
+    menuItems.splice(itemIndex, 1);
+    await saveMenu(menuItems);
+    
+    res.json({ success: true, message: 'Menu item deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Error deleting menu item' });
+  }
 });
 
 // API endpoints for authentication
@@ -315,7 +331,6 @@ app.get('/', (req, res) => {
 });
 
 // Menu page
-
 app.get('/menu', (req, res) => {
   res.sendFile(path.join(__dirname, '../front/menu.html'));
 });
@@ -328,6 +343,12 @@ app.get('/contact', (req, res) => {
 // Profile page
 app.get('/profile', (req, res) => {
   res.sendFile(path.join(__dirname, '../front/profile.html'));
+});
+
+// For access: login='admin@gmail.com', password='password'
+// Admin page
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, '../front/admin.html'));
 });
 
 // Error handling
