@@ -125,3 +125,52 @@
 .menu_filters_button.active {
   background-color: #fffafd;
 }
+
+.menu_days_filters {
+  margin: 24px 0;
+  text-align: center;
+}
+
+.menu_days_filters h3 {
+  color: var(--header-color);
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.menu_days_buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.menu_day_button {
+  background-color: #f3edf080;
+  color: #262626;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 40px;
+}
+
+.menu_day_button:hover {
+  background-color: #e8d5e8;
+  transform: translateY(-1px);
+}
+
+.menu_day_button.active {
+  background-color: var(--primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(236, 72, 153, 0.3);
+}
+
+.menu_day_button.active:hover {
+  background-color: #ef407a;
+  transform: translateY(-1px);
+}

@@ -93,6 +93,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
+// Extended menu with day of the week binding
 const menuItems = [
   {
     id: 1,
@@ -101,6 +102,7 @@ const menuItems = [
     description: 'Salmon, avocado, cucumber with pink tobiko caviar',
     tags: [],
     price: 12,
+    availableDays: [1, 2, 3, 4, 5, 6, 7],
   },
   {
     id: 2,
@@ -109,6 +111,7 @@ const menuItems = [
     description: 'Fresh Norwegian salmon on rice',
     tags: [],
     price: 13,
+    availableDays: [1, 2, 3, 4, 5, 6, 7],
   },
   {
     id: 3,
@@ -117,6 +120,7 @@ const menuItems = [
     description: 'Teriyaki tofu, cucumber, iceberg lettuce',
     tags: [['g', 'Vegan']],
     price: 14,
+    availableDays: [1, 2, 3, 4, 5, 6, 7],
   },
   {
     id: 4,
@@ -128,6 +132,61 @@ const menuItems = [
       ['b', 'Gluten-free'],
     ],
     price: 15,
+    availableDays: [1, 2, 3, 4, 5, 6, 7],
+  },
+  {
+    id: 5,
+    type: 'Rolls',
+    title: 'Dragon Roll',
+    description: 'Eel, cucumber, avocado with eel sauce',
+    tags: [],
+    price: 18,
+    availableDays: [1, 3, 5, 7],
+  },
+  {
+    id: 6,
+    type: 'Sushi',
+    title: 'Tuna Sashimi',
+    description: 'Fresh bluefin tuna sashimi',
+    tags: [],
+    price: 22,
+    availableDays: [2, 4, 6],
+  },
+  {
+    id: 7,
+    type: 'Hot Dishes',
+    title: 'Chicken Teriyaki',
+    description: 'Grilled chicken with teriyaki sauce and rice',
+    tags: [],
+    price: 16,
+    availableDays: [1, 2, 3, 4, 5],
+  },
+  {
+    id: 8,
+    type: 'Rolls',
+    title: 'Spicy Tuna Roll',
+    description: 'Spicy tuna, cucumber, spicy mayo',
+    tags: [['b', 'Spicy']],
+    price: 14,
+    availableDays: [6, 7],
+  },
+  {
+    id: 9,
+    type: 'Sushi',
+    title: 'Unagi Nigiri',
+    description: 'Grilled eel on rice',
+    tags: [],
+    price: 19,
+    availableDays: [1, 3, 5],
+  },
+  {
+    id: 10,
+    type: 'Hot Dishes',
+    title: 'Beef Ramen',
+    description: 'Rich beef broth with noodles and vegetables',
+    tags: [],
+    price: 17,
+    availableDays: [2, 4, 6, 7],
   },
 ];
 
@@ -141,6 +200,25 @@ app.get('/api/test', (req, res) => {
 
 app.get('/api/menu', (req, res) => {
   res.json(menuItems);
+});
+
+// API endpoint for getting menu by days of the week
+app.get('/api/menu/days', (req, res) => {
+  const { days } = req.query;
+  
+  if (!days) {
+    return res.json(menuItems);
+  }
+  
+  // Parse days of the week from query parameter
+  const selectedDays = days.split(',').map(day => parseInt(day.trim()));
+  
+  // Filter menu by selected days
+  const filteredMenu = menuItems.filter(item => {
+    return selectedDays.some(day => item.availableDays.includes(day));
+  });
+  
+  res.json(filteredMenu);
 });
 
 // API endpoints for authentication
