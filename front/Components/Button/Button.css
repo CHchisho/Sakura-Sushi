@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 4px;
   background-color: var(--primary);
   color: white;
   border-radius: 8px;
@@ -27,7 +28,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  gap: 4px;
+  background-color: white;
   color: black;
   border-radius: 8px;
   outline: none;
@@ -51,6 +53,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 4px;
   background-color: transparent;
   color: black;
   border-radius: 8px;

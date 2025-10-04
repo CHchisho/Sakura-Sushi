@@ -9,6 +9,8 @@
 @import url('./Preview/Preview.css');
 @import url('./Contact/contact.css');
 @import url('./Cart/Cart.css');
+@import url('./Modal/Modal.css');
+@import url('./profile.css');
 
 /* Global styles */
 
@@ -21,6 +23,13 @@
   --color-1: #fdfbfc;
   --header-color: #262626;
   --menu-item-background: #fff;
+  --primary-hover: #d12a5f;
+  --bg-color: #fff;
+  --text-color: #262626;
+  --text-secondary: #666;
+  --border-color: #ecdfe6;
+  --hover-color: rgba(0, 0, 0, 0.05);
+  --input-bg: #fff;
   transition: all 0.2s;
 }
 
@@ -31,6 +40,12 @@
   --menu-item-background: #484848;
   /* --border: #222; */
   --color-1: #d9d9d9;
+  --bg-color: #484848;
+  --text-color: #d9d9d9;
+  --text-secondary: #999;
+  --border-color: #666;
+  --hover-color: rgba(255, 255, 255, 0.1);
+  --input-bg: #555;
 }
 
 

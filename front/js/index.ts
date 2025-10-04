@@ -3,6 +3,7 @@ import { getMenu } from './api.js';
 import { generateMenu, initializeFilterButtons, setMenu } from './menu.js';
 import { cart } from './cart.js';
 import { loadTheme, toggleTheme } from './theme.js';
+import './user.js';
 
 async function main(): Promise<void> {
 	try {
