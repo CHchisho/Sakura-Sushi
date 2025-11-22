@@ -245,7 +245,11 @@ function authenticateToken(req, res, next) {
     if (err) {
       return res.status(403).json({ success: false, message: 'Invalid token' })
     }
-    req.user = user
+    // Ensure user.id is a Number (not BigInt) to avoid serialization issues
+    req.user = {
+      ...user,
+      id: Number(user.id),
+    }
     next()
   })
 }
@@ -653,9 +657,15 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
     // Ensure userId is a number
     const userId = Number(req.user.id)
 
-    // Validate userId
-    if (!userId || isNaN(userId)) {
+    if (
+      !userId ||
+      isNaN(userId) ||
+      userId <= 0 ||
+      userId > 2147483647 ||
+      !Number.isInteger(userId)
+    ) {
       await conn.rollback()
+      console.error('Invalid user ID:', req.user.id, 'converted to:', userId)
       return res.status(400).json({
         success: false,
         message: 'Invalid user ID. Please login again.',
@@ -675,6 +685,7 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
     const userCheck = await conn.query('SELECT id FROM users WHERE id = ?', [userId])
     if (userCheck.length === 0) {
       await conn.rollback()
+      console.error('User not found in database. userId:', userId, 'type:', typeof userId)
       return res.status(404).json({
         success: false,
         message: 'User not found. Please login again.',
@@ -691,7 +702,8 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
       'INSERT INTO orders (user_id, restaurant_id, total_price, status, delivery_date, delivery_time) VALUES (?, ?, ?, ?, ?, ?)',
       [userId, restaurantId, totalPrice, 'pending', deliveryDate || null, deliveryTime || null]
     )
-    const orderId = orderResult.insertId
+    // Convert BigInt to Number to avoid serialization issues
+    const orderId = Number(orderResult.insertId)
 
     // Insert order items
     for (const item of items) {
