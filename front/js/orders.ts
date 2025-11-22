@@ -111,12 +111,12 @@ class OrdersManager {
 
   private getStatusLabel(status: string): string {
     const statusMap: { [key: string]: string } = {
-      pending: 'Ожидание',
-      confirmed: 'Подтвержден',
-      preparing: 'Выполнение',
-      ready: 'Готово',
-      delivered: 'Доставлен',
-      cancelled: 'Отменено',
+      pending: 'Pending',
+      confirmed: 'Confirmed',
+      preparing: 'Preparing',
+      ready: 'Ready',
+      delivered: 'Delivered',
+      cancelled: 'Cancelled',
     }
     return statusMap[status] || status
   }
