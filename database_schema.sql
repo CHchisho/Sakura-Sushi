@@ -21,7 +21,7 @@ CREATE TABLE roles (
 
 -- Users table
 CREATE TABLE users (
-    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL COMMENT 'Hashed password (bcrypt)',
     role_id INT NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE restaurant_menu (
 -- Orders table
 CREATE TABLE orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id BIGINT NOT NULL,
+    user_id INT NOT NULL,
     restaurant_id INT NOT NULL,
     total_price DECIMAL(10, 2) NOT NULL,
     status ENUM('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled')

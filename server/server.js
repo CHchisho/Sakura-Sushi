@@ -17,16 +17,26 @@ app.use(express.static(path.join(__dirname, '../front')))
 
 // Functions for working with users
 async function findUserByEmail(email) {
+  // Normalize email to lowercase for case-insensitive comparison
+  const normalizedEmail = email.toLowerCase().trim()
   const result = await query(
-    'SELECT u.id, u.email, u.password, u.created_at, r.name as role_name FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = ?',
-    [email]
+    'SELECT u.id, u.email, u.password, u.created_at, r.name as role_name FROM users u JOIN roles r ON u.role_id = r.id WHERE LOWER(TRIM(u.email)) = ?',
+    [normalizedEmail]
   )
-  return result.length > 0 ? result[0] : null
+  if (result.length > 0) {
+    const user = result[0]
+    user.id = Number(user.id)
+    return user
+  }
+  return null
 }
 
 async function createUser(email, password) {
+  // Normalize email to lowercase and trim
+  const normalizedEmail = email.toLowerCase().trim()
+
   // Check if the user exists
-  const existingUser = await findUserByEmail(email)
+  const existingUser = await findUserByEmail(normalizedEmail)
   if (existingUser) {
     throw new Error('User with this email already exists')
   }
@@ -41,18 +51,23 @@ async function createUser(email, password) {
   }
   const roleId = roleResult[0].id
 
-  // Insert new user
+  // Insert new user with normalized email
   const result = await query('INSERT INTO users (email, password, role_id) VALUES (?, ?, ?)', [
-    email,
+    normalizedEmail,
     hashedPassword,
     roleId,
   ])
 
-  return { id: result.insertId, email }
+  // Convert BigInt to Number to avoid serialization issues
+  const userId = Number(result.insertId)
+
+  return { id: userId, email: normalizedEmail }
 }
 
 async function validateUser(email, password) {
-  const user = await findUserByEmail(email)
+  // Normalize email to lowercase and trim
+  const normalizedEmail = email.toLowerCase().trim()
+  const user = await findUserByEmail(normalizedEmail)
   if (!user) {
     throw new Error('User not found')
   }
@@ -62,7 +77,8 @@ async function validateUser(email, password) {
     throw new Error('Invalid password')
   }
 
-  return { id: user.id, email: user.email }
+  // Ensure id is a Number (not BigInt)
+  return { id: Number(user.id), email: user.email }
 }
 
 // Helper function to check if user is admin
@@ -177,6 +193,11 @@ async function loadOrders(userId = null, isAdmin = false) {
 
   // Load order items for each order
   for (const order of orders) {
+    // Convert BigInt IDs to Number to avoid serialization issues
+    order.id = Number(order.id)
+    order.userId = Number(order.userId)
+    order.restaurantId = Number(order.restaurantId)
+
     const orderItems = await query(
       `
       SELECT 
@@ -194,7 +215,7 @@ async function loadOrders(userId = null, isAdmin = false) {
     )
 
     order.items = orderItems.map((item) => ({
-      id: item.menuId,
+      id: Number(item.menuId),
       title: item.title,
       price: parseFloat(item.price),
       quantity: item.quantity,
@@ -572,10 +593,12 @@ app.post('/api/auth/login', async (req, res) => {
       })
     }
 
-    const user = await validateUser(email, password)
+    // Normalize email to lowercase and trim
+    const normalizedEmail = email.toLowerCase().trim()
+    const user = await validateUser(normalizedEmail, password)
 
-    // Ensure user.id is a valid number (BIGINT)
-    if (!user.id || isNaN(parseInt(user.id, 10))) {
+    // Ensure user.id is a valid number
+    if (!user.id || isNaN(Number(user.id))) {
       return res.status(500).json({
         success: false,
         message: 'Invalid user ID format',
@@ -583,7 +606,7 @@ app.post('/api/auth/login', async (req, res) => {
     }
 
     // Create JWT token with 1 day expiration
-    const token = jwt.sign({ id: parseInt(user.id, 10), email: user.email }, JWT_SECRET, {
+    const token = jwt.sign({ id: Number(user.id), email: user.email }, JWT_SECRET, {
       expiresIn: '1d',
     })
 
@@ -627,8 +650,8 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
     await conn.beginTransaction()
 
     const { restaurantId, deliveryDate, deliveryTime, items } = req.body
-    // Ensure userId is a number (BIGINT)
-    const userId = parseInt(req.user.id, 10)
+    // Ensure userId is a number
+    const userId = Number(req.user.id)
 
     // Validate userId
     if (!userId || isNaN(userId)) {
@@ -700,7 +723,7 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
 // Get user orders
 app.get('/api/orders', authenticateToken, async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = Number(req.user.id)
     const isAdmin = req.user.email === 'admin@gmail.com'
 
     const orders = await loadOrders(isAdmin ? null : userId, isAdmin)
