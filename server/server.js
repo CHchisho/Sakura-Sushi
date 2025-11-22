@@ -574,8 +574,16 @@ app.post('/api/auth/login', async (req, res) => {
 
     const user = await validateUser(email, password)
 
+    // Ensure user.id is a valid number (BIGINT)
+    if (!user.id || isNaN(parseInt(user.id, 10))) {
+      return res.status(500).json({
+        success: false,
+        message: 'Invalid user ID format',
+      })
+    }
+
     // Create JWT token with 1 day expiration
-    const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+    const token = jwt.sign({ id: parseInt(user.id, 10), email: user.email }, JWT_SECRET, {
       expiresIn: '1d',
     })
 
@@ -619,7 +627,17 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
     await conn.beginTransaction()
 
     const { restaurantId, deliveryDate, deliveryTime, items } = req.body
-    const userId = req.user.id
+    // Ensure userId is a number (BIGINT)
+    const userId = parseInt(req.user.id, 10)
+
+    // Validate userId
+    if (!userId || isNaN(userId)) {
+      await conn.rollback()
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid user ID. Please login again.',
+      })
+    }
 
     // Validate required fields
     if (!restaurantId || !deliveryDate || !deliveryTime || !items || items.length === 0) {
@@ -627,6 +645,16 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'Missing required fields',
+      })
+    }
+
+    // Verify that user exists in database
+    const userCheck = await conn.query('SELECT id FROM users WHERE id = ?', [userId])
+    if (userCheck.length === 0) {
+      await conn.rollback()
+      return res.status(404).json({
+        success: false,
+        message: 'User not found. Please login again.',
       })
     }
 
