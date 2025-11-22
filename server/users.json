@@ -1,14 +1,14 @@
 [
   {
-    "id": 1759563799587,
-    "email": "ilia@gmail.com",
-    "password": "$2b$10$obqbl1csbEtlflGsFL5hGODxzywy3kZ5fhU.gdqEyzjOtMgYYG.nm",
-    "createdAt": "2025-10-04T07:43:19.587Z"
+    "id": 1763799057984,
+    "email": "i@gmail.com",
+    "password": "$2b$10$GpomQtAAe/JJQa/OgSTeb.Wd6YBlg98hJXRl2xg/frtQmDJYHAn0K",
+    "createdAt": "2025-11-22T08:10:57.984Z"
   },
   {
-    "id": 1759572159973,
+    "id": 1763800807660,
     "email": "admin@gmail.com",
-    "password": "$2b$10$j/wHT9NYjT.RNVSqfy6sT.S4DIhXeXEZ4cJWuBfzCf4HcpkSajwRW",
-    "createdAt": "2025-10-04T10:02:39.973Z"
+    "password": "$2b$10$jPEMWAS5Yh0Ixb3QdKkKWuGKB.PEHu1Ic3dqMhre.vthOaKd5hbCe",
+    "createdAt": "2025-11-22T08:40:07.660Z"
   }
 ]

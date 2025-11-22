@@ -97,6 +97,8 @@ CREATE TABLE orders (
     total_price DECIMAL(10, 2) NOT NULL,
     status ENUM('pending', 'confirmed', 'preparing', 'ready', 'delivered', 'cancelled')
         DEFAULT 'pending' NOT NULL,
+    delivery_date DATE NOT NULL,
+    delivery_time TIME NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT,
@@ -191,10 +193,10 @@ INSERT INTO restaurant_menu (restaurant_id, menu_id) VALUES
 (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (3, 8), (3, 9), (3, 10);
 
 -- Insert test orders
-INSERT INTO orders (user_id, restaurant_id, total_price, status) VALUES
-(2, 1, 25.00, 'confirmed'),
-(2, 1, 58.00, 'delivered'),
-(3, 2, 29.00, 'preparing');
+INSERT INTO orders (user_id, restaurant_id, total_price, status, delivery_date, delivery_time) VALUES
+(2, 1, 25.00, 'confirmed', '2025-11-22', '12:00:00'),
+(2, 1, 58.00, 'delivered', '2025-11-22', '12:00:00'),
+(3, 2, 29.00, 'preparing', '2025-11-22', '12:00:00');
 
 -- Insert order items
 INSERT INTO order_items (order_id, menu_id, quantity, price, subtotal) VALUES

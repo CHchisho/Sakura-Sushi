@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Orders - Sakura Sushi</title>
+    <link rel="stylesheet" href="Components/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+    <script src="js-dist/orders.js" type="module"></script>
+  </head>
+  <body>
+    <header id="header"></header>
+
+    <div class="orders-container">
+      <div class="orders-content">
+        <div class="orders-header">
+          <h1 class="orders-title">My Orders</h1>
+          <button class="button_secondary" id="back-to-profile">
+            <i class="bi bi-arrow-left"></i>
+            Back to Profile
+          </button>
+        </div>
+
+        <div class="orders-list" id="orders-list">
+          <div class="loading-message">Loading orders...</div>
+        </div>
+      </div>
+    </div>
+
+    <footer id="footer"></footer>
+  </body>
+</html>

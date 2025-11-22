@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1763800143112,
+    "userId": 1763799057984,
+    "restaurantId": 1,
+    "deliveryDate": "2025-11-28",
+    "deliveryTime": "18:30",
+    "items": [
+      {
+        "id": 6,
+        "title": "Tuna Sashimi",
+        "price": 22,
+        "quantity": 1,
+        "subtotal": 22
+      }
+    ],
+    "subtotal": 22,
+    "totalPrice": 22,
+    "status": "pending",
+    "createdAt": "2025-11-22T08:29:03.112Z",
+    "updatedAt": "2025-11-22T08:52:04.856Z"
+  }
+]

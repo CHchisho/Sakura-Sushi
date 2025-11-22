@@ -52,6 +52,24 @@
   margin-bottom: 20px;
 }
 
+.profile-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 2px solid var(--border-color);
+}
+
+.profile-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
 .profile-stats {
   display: flex;
   flex-direction: column;

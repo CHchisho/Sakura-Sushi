@@ -12,19 +12,21 @@
 @import url('./Cart/Cart.css');
 @import url('./Modal/Modal.css');
 @import url('./profile.css');
+@import url('./Checkout/Checkout.css');
+@import url('./Orders/Orders.css');
 
 /* Global styles */
 
 :root {
-  --primary: #e23670;
-  --secondary: #f6cbe8;
-  --background: #f8f1f5;
-  --header-background: #f8f1f5;
+  --primary: #ba181b;
+  --secondary: #ec5f62;
+  --background: #fff4f4;
+  --header-background: #fff4f4;
   --border: #ecdfe6;
   --color-1: #fdfbfc;
   --header-color: #262626;
   --menu-item-background: #fff;
-  --primary-hover: #d12a5f;
+  --primary-hover: #e5383b;
   --bg-color: #fff;
   --text-color: #262626;
   --text-secondary: #666;
@@ -36,7 +38,7 @@
 
 .dark {
   --background: #373131;
-  --header-background: #f6cbe8;
+  --header-background: #373131;
   --header-color: #d9d9d9;
   --menu-item-background: #484848;
   /* --border: #222; */
@@ -49,7 +51,6 @@
   --input-bg: #555;
 }
 
-
 body {
   margin: 0;
   overflow-x: hidden !important;
@@ -58,8 +59,8 @@ body {
   font-feature-settings: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -71,12 +72,12 @@ h5,
 h6,
 p {
   margin: 0;
-  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 * {
   box-sizing: border-box;
-  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
-  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 }

@@ -17,10 +17,6 @@
   <div class="admin-header">
     <h1>Admin Panel</h1>
     <div class="admin-actions">
-      <button id="add-menu-item" class="button_primary">
-        <i class="bi bi-plus-lg"></i>
-        Add Menu Item
-      </button>
       <button id="logout-btn" class="button_secondary">
         <i class="bi bi-box-arrow-right"></i>
         Logout
@@ -28,9 +24,41 @@
     </div>
   </div>
 
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="menu">
+      <i class="bi bi-menu-button-wide"></i>
+      Menu
+    </button>
+    <button class="admin-tab" data-tab="orders">
+      <i class="bi bi-bag"></i>
+      Orders
+    </button>
+  </div>
+
   <div class="admin-content">
-    <div class="menu-items-list" id="menu-items-list">
-      <!-- Menu items will be loaded here -->
+    <!-- Menu Tab Content -->
+    <div class="tab-content active" id="menu-tab">
+      <div class="tab-header">
+        <h2>Menu Management</h2>
+        <button id="add-menu-item" class="button_primary">
+          <i class="bi bi-plus-lg"></i>
+          Add Menu Item
+        </button>
+      </div>
+      <div class="menu-items-list" id="menu-items-list">
+        <!-- Menu items will be loaded here -->
+      </div>
+    </div>
+
+    <!-- Orders Tab Content -->
+    <div class="tab-content" id="orders-tab">
+      <div class="tab-header">
+        <h2>Orders Management</h2>
+      </div>
+      <div class="orders-list" id="admin-orders-list">
+        <!-- Orders will be loaded here -->
+        <div class="loading-message">Loading orders...</div>
+      </div>
     </div>
   </div>
 </div>

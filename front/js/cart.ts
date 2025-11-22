@@ -263,9 +263,17 @@ export class Cart {
 			return;
 		}
 
-		// Here you can add logic for proceeding to checkout
-		alert(`Proceeding to checkout. Total amount: ${this.getTotalPrice().toFixed(0)}$`);
+		// Check if user is authenticated
+		const token = localStorage.getItem('authToken');
+		if (!token) {
+			alert('Please login to proceed to checkout');
+			this.closeCart();
+			return;
+		}
+
+		// Redirect to checkout page
 		this.closeCart();
+		window.location.href = '/checkout';
 	}
 }
 

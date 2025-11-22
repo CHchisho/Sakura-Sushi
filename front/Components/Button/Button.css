@@ -16,11 +16,11 @@
 }
 
 .button_primary:hover {
-  background-color: #ef407a;
+  background-color: var(--primary-hover);
 }
 
 .button_primary:active {
-  background-color: #d72f5c;
+  background-color: rgb(202, 39, 63);
   scale: 0.98;
 }
 
