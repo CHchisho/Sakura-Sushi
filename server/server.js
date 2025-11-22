@@ -637,8 +637,8 @@ app.post('/api/orders', authenticateToken, async (req, res) => {
     // Create order (note: deliveryDate and deliveryTime are not in current schema,
     // using created_at as deliveryDate. You may need to add these fields to orders table)
     const orderResult = await conn.query(
-      'INSERT INTO orders (user_id, restaurant_id, total_price, status) VALUES (?, ?, ?, ?)',
-      [userId, restaurantId, totalPrice, 'pending']
+      'INSERT INTO orders (user_id, restaurant_id, total_price, status, delivery_date, delivery_time) VALUES (?, ?, ?, ?, ?, ?)',
+      [userId, restaurantId, totalPrice, 'pending', deliveryDate || null, deliveryTime || null]
     )
     const orderId = orderResult.insertId
 
