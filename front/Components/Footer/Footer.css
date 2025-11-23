@@ -1,4 +1,3 @@
-
 .footer {
   width: 100%;
   background: var(--background);
@@ -62,6 +61,10 @@
   margin-bottom: 8px;
   color: #000;
 }
+.footer_contact_item a,
+.footer_hours_item a {
+  color: var(--primary);
+}
 
 .footer_contact_item i {
   color: var(--primary);
@@ -91,4 +94,3 @@
     font-size: 20px;
   }
 }
-

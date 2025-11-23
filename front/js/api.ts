@@ -21,7 +21,14 @@ export const getBusStops = async (): Promise<BusStopFeatureCollection> => {
 const fetchData = async <T>(url: string, options: RequestInit = {}): Promise<T> => {
   const response = await fetch(url, options)
   if (!response.ok) {
-    throw new Error(`Error ${response.status} occured`)
+    let errorMessage = `Error ${response.status} occured`
+    try {
+      const errorData = await response.json()
+      if (errorData && errorData.message) {
+        errorMessage = errorData.message
+      }
+    } catch {}
+    throw new Error(errorMessage)
   }
   const json = response.json()
   return json

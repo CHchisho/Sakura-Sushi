@@ -167,6 +167,8 @@ async function loadOrders(userId = null, isAdmin = false) {
         o.status,
         o.created_at as createdAt,
         o.updated_at as updatedAt,
+        o.delivery_date as deliveryDate,
+        o.delivery_time as deliveryTime,
         u.email as userEmail
       FROM orders o
       LEFT JOIN users u ON o.user_id = u.id
@@ -181,7 +183,9 @@ async function loadOrders(userId = null, isAdmin = false) {
         total_price as totalPrice,
         status,
         created_at as createdAt,
-        updated_at as updatedAt
+        updated_at as updatedAt,
+        delivery_date as deliveryDate,
+        delivery_time as deliveryTime
       FROM orders
       WHERE user_id = ?
       ORDER BY created_at DESC
@@ -223,10 +227,12 @@ async function loadOrders(userId = null, isAdmin = false) {
     }))
 
     order.subtotal = parseFloat(order.totalPrice)
-    order.deliveryDate = order.createdAt
+    order.deliveryDate = order.deliveryDate
+      ? new Date(order.deliveryDate).toISOString().split('T')[0]
+      : order.createdAt
       ? new Date(order.createdAt).toISOString().split('T')[0]
       : null
-    order.deliveryTime = null // deliveryTime не хранится в текущей схеме БД
+    order.deliveryTime = order.deliveryTime || null
   }
 
   return orders
