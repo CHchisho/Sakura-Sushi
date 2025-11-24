@@ -1,6 +1,6 @@
 <div class="header_content">
   <a class="header_logo" href="/">
-    <img src="../../images/logo.png" alt="sakura sushi logo" width="40" height="40" />
+    <img src="../../images/logo-sm.png" alt="sakura sushi logo" width="40" height="40" />
     <p>Sakura Sushi</p>
   </a>
   <div class="header_menu">
@@ -10,11 +10,15 @@
     <a href="/contact" class="header_menu_button">Contact</a>
   </div>
   <div class="header_controls">
-    <button class="header_control_button button_secondary" id="cart-button">
+    <button
+      class="header_control_button button_secondary"
+      id="cart-button"
+      aria-label="Shopping cart"
+    >
       <i class="bi bi-cart"></i>
       <span class="cart-count" id="cart-count">0</span>
     </button>
-    <button class="header_control_button button_secondary">
+    <button class="header_control_button button_secondary" aria-label="User profile">
       <i class="bi bi-person"></i>
     </button>
   </div>
@@ -24,7 +28,7 @@
   <div class="cart-sidebar" id="cart-sidebar">
     <div class="cart-header">
       <h3>Shopping Cart</h3>
-      <button class="cart-close" id="cart-close">
+      <button class="cart-close" id="cart-close" aria-label="Close cart">
         <i class="bi bi-x-lg"></i>
       </button>
     </div>

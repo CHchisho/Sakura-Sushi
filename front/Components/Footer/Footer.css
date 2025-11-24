@@ -40,7 +40,7 @@
 }
 
 .footer_description {
-  color: #6b7280;
+  color: var(--text-secondary);
   line-height: 1.6;
   max-width: 400px;
 }
@@ -50,7 +50,7 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
-  color: #374151;
+  color: var(--header-color);
 }
 
 .footer_contact_item,
@@ -59,7 +59,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-  color: #000;
+  color: var(--text-color);
 }
 .footer_contact_item a,
 .footer_hours_item a {
@@ -80,7 +80,7 @@
   text-align: center;
   padding-top: 20px;
   border-top: 1px solid #e5e7eb;
-  color: #9ca3af;
+  color: var(--text-secondary);
   font-size: 14px;
 }
 

@@ -10,7 +10,7 @@
 }
 
 .menu_header_desc {
-  color: grey;
+  color: var(--text-secondary);
   text-align: center;
   margin-block: 12px;
 }
