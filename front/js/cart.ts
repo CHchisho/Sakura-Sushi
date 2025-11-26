@@ -50,7 +50,9 @@ export class Cart {
 
     if (existingItem) {
       existingItem.quantity += 1
-      showNotification(`🍣 ${menuItem.title} added to cart (${existingItem.quantity} items)`)
+      showNotification(
+        `🍣 ${menuItem.title} added 1 item to cart (${existingItem.quantity} items now)`
+      )
     } else {
       this.items.push({
         id: menuItem.id,
@@ -58,7 +60,7 @@ export class Cart {
         price: menuItem.price,
         quantity: 1,
       })
-      showNotification(`🍣 ${menuItem.title} added to cart`)
+      showNotification(`🍣 ${menuItem.title} added 1 item to cart`)
     }
 
     this.saveToStorage()

@@ -98,11 +98,11 @@ class AuthManager {
     closeBtn?.addEventListener('click', () => this.closeModal())
 
     // Click outside modal
-    this.modal?.addEventListener('click', (e) => {
-      if (e.target === this.modal) {
-        this.closeModal()
-      }
-    })
+    // this.modal?.addEventListener('click', (e) => {
+    //   if (e.target === this.modal) {
+    //     this.closeModal()
+    //   }
+    // })
 
     // Switch between forms
     const switchToRegister = document.getElementById('switch-to-register')
@@ -271,6 +271,9 @@ class AuthManager {
     this.modal?.classList.remove('show')
     document.body.style.overflow = ''
     this.clearMessages()
+    // Очистка полей форм при закрытии модального окна
+    this.loginForm?.reset()
+    this.registerForm?.reset()
   }
 
   private showMessage(message: string, type: 'success' | 'error'): void {

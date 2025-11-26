@@ -154,7 +154,6 @@ class OrdersManager {
     ordersList.innerHTML = this.orders
       .map((order) => {
         const restaurantName = this.getRestaurantName(order.restaurantId)
-        const remainingCount = order.items.length - 2
 
         return `
 				<div class="order-card">
@@ -190,7 +189,6 @@ class OrdersManager {
 							`
                 )
                 .join('')}
-							${remainingCount > 0 ? `<span class="order-item-more">+${remainingCount} more</span>` : ''}
 						</div>
 					</div>
 					<div class="order-card-footer">

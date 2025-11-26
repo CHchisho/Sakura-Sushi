@@ -63,7 +63,6 @@
 
 /* Order Summary */
 .order-items {
-  margin-bottom: 24px;
   max-height: 400px;
   overflow-y: auto;
 }
@@ -136,8 +135,6 @@
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--primary);
-  padding-top: 12px;
-  border-top: 2px solid var(--border-color);
 }
 
 /* Payment Method */

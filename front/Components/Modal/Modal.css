@@ -1,4 +1,8 @@
 /* Modal Styles */
+#modal {
+  position: fixed;
+  z-index: 2000;
+}
 .modal {
   display: none;
   position: fixed;
@@ -58,6 +62,8 @@
   background: none;
   border: none;
   font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
   color: var(--text-color);
   cursor: pointer;
   padding: 4px;
