@@ -137,7 +137,7 @@ INSERT INTO roles (name, description) VALUES
 
 -- Insert users
 INSERT INTO users (email, password, role_id) VALUES
-('admin@gmail.com', '$2b$10$rOzJ8qKZqKZqKZqKZqKZqOqKZqKZqKZqKZqKZqKZqKZqKZqKZqK', 1),
+('admin@gmail.com', '$2b$10$PRfiQ/2nrg6kfw4M4RSSaeTOMhvySCxoVh6eO3Y1gkjtAM2q8IETG', 1),
 ('user1@example.com', '$2b$10$rOzJ8qKZqKZqKZqKZqKZqOqKZqKZqKZqKZqKZqKZqKZqKZqKZqK', 2),
 ('user2@example.com', '$2b$10$rOzJ8qKZqKZqKZqKZqKZqOqKZqKZqKZqKZqKZqKZqKZqKZqKZqK', 2);
 

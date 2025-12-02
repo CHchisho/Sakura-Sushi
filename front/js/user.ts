@@ -271,7 +271,6 @@ class AuthManager {
     this.modal?.classList.remove('show')
     document.body.style.overflow = ''
     this.clearMessages()
-    // Очистка полей форм при закрытии модального окна
     this.loginForm?.reset()
     this.registerForm?.reset()
   }
